@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.android.trackmysleepquality.sleepdetail
+package com.example.android.instaclone.instaclonedetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.android.trackmysleepquality.database.SleepDatabaseDao
-import com.example.android.trackmysleepquality.database.SleepNight
+import com.example.android.instaclone.database.InstaCloneDatabaseDao
+import com.example.android.instaclone.database.ImagePost
 import kotlinx.coroutines.Job
 
 /**
@@ -31,7 +31,7 @@ import kotlinx.coroutines.Job
  */
 class SleepDetailViewModel(
         private val sleepNightKey: Long = 0L,
-        dataSource: SleepDatabaseDao) : ViewModel() {
+        dataSource: InstaCloneDatabaseDao) : ViewModel() {
 
     /**
      * Hold a reference to SleepDatabase via its SleepDatabaseDao.
@@ -45,7 +45,7 @@ class SleepDetailViewModel(
      */
     private val viewModelJob = Job()
 
-    private val night = MediatorLiveData<SleepNight>()
+    private val night = MediatorLiveData<ImagePost>()
 
     fun getNight() = night
 

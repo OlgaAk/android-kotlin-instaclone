@@ -25,14 +25,9 @@
 
     <fragment
         android:id="@+id/sleep_tracker_fragment"
-        android:name="com.example.android.trackmysleepquality.sleeptracker.SleepTrackerFragment"
+        android:name="com.example.android.instaclone.instaclonehome.InstaCloneFragment"
         android:label="@string/sleep_tracker_fragment"
-        tools:layout="@layout/fragment_sleep_tracker">
-        <action
-            android:id="@+id/action_sleepTrackerFragment_to_sleepQualityFragment"
-            app:destination="@id/sleep_quality_fragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:popEnterAnim="@anim/slide_in_right" />
+        tools:layout="@layout/fragment_insta_clone">
         <action
             android:id="@+id/action_sleep_tracker_fragment_to_sleepDetailFragment"
             app:destination="@id/sleep_detail_fragment"
@@ -41,25 +36,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/sleep_quality_fragment"
-        android:name="com.example.android.trackmysleepquality.sleepquality.SleepQualityFragment"
-        android:label="@string/sleep_quality_fragment"
-        tools:layout="@layout/fragment_sleep_quality">
-        <argument
-            android:name="sleepNightKey"
-            app:argType="long" />
-        <action
-            android:id="@+id/action_sleepQualityFragment_to_sleepTrackerFragment"
-            app:destination="@id/sleep_tracker_fragment"
-            app:launchSingleTop="false"
-            app:popUpTo="@+id/sleep_tracker_fragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
         android:id="@+id/sleep_detail_fragment"
-        android:name="com.example.android.trackmysleepquality.sleepdetail.SleepDetailFragment"
+        android:name="com.example.android.instaclone.instaclonedetail.SleepDetailFragment"
         android:label="fragment_sleep_detail"
-        tools:layout="@layout/fragment_sleep_detail" >
+        tools:layout="@layout/fragment_insta_clone_detail" >
         <argument
             android:name="sleepNightKey"
             app:argType="long" />

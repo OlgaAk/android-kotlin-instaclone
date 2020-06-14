@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.trackmysleepquality
+package com.example.android.instaclone
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
@@ -24,7 +24,7 @@ import android.text.Spanned
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.trackmysleepquality.database.SleepNight
+import com.example.android.instaclone.database.ImagePost
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -113,7 +113,7 @@ fun convertLongToDateString(systemTime: Long): String {
  *           See: https://developer.android.com/reference/android/text/Spanned
  */
 
-fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
+fun formatNights(nights: List<ImagePost>, resources: Resources): Spanned {
     val sb = StringBuilder()
     sb.apply {
         append(resources.getString(R.string.title))

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.android.trackmysleepquality.database
+package com.example.android.instaclone.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "daily_sleep_quality_table")
-data class SleepNight(
+data class ImagePost(
         @PrimaryKey(autoGenerate = true)
         var nightId: Long = 0L,
 

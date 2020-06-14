@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.android.trackmysleepquality.sleepdetail
+package com.example.android.instaclone.instaclonedetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.android.trackmysleepquality.database.SleepDatabaseDao
+import com.example.android.instaclone.database.InstaCloneDatabaseDao
 
 /**
  * This is pretty much boiler plate code for a ViewModel Factory.
@@ -27,7 +27,7 @@ import com.example.android.trackmysleepquality.database.SleepDatabaseDao
  */
 class SleepDetailViewModelFactory(
         private val sleepNightKey: Long,
-        private val dataSource: SleepDatabaseDao) : ViewModelProvider.Factory {
+        private val dataSource: InstaCloneDatabaseDao) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SleepDetailViewModel::class.java)) {

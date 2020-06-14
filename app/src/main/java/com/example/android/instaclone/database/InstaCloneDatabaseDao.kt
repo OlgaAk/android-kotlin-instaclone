@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.trackmysleepquality.database
+package com.example.android.instaclone.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -26,10 +26,10 @@ import androidx.room.Update
  * Defines methods for using the SleepNight class with Room.
  */
 @Dao
-interface SleepDatabaseDao {
+interface InstaCloneDatabaseDao {
 
     @Insert
-    fun insert(night: SleepNight)
+    fun insert(night: ImagePost)
 
     /**
      * When updating a row with a value already set in a column,
@@ -38,7 +38,7 @@ interface SleepDatabaseDao {
      * @param night new value to write
      */
     @Update
-    fun update(night: SleepNight)
+    fun update(night: ImagePost)
 
     /**
      * Selects and returns the row that matches the supplied start time, which is our key.
@@ -46,7 +46,7 @@ interface SleepDatabaseDao {
      * @param key startTimeMilli to match
      */
     @Query("SELECT * from daily_sleep_quality_table WHERE nightId = :key")
-    fun get(key: Long): SleepNight?
+    fun get(key: Long): ImagePost?
 
     /**
      * Deletes all values from the table.
@@ -62,18 +62,18 @@ interface SleepDatabaseDao {
      * sorted by start time in descending order.
      */
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC")
-    fun getAllNights(): LiveData<List<SleepNight>>
+    fun getAllNights(): LiveData<List<ImagePost>>
 
     /**
      * Selects and returns the latest night.
      */
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC LIMIT 1")
-    fun getTonight(): SleepNight?
+    fun getTonight(): ImagePost?
 
     /**
      * Selects and returns the night with given nightId.
      */
     @Query("SELECT * from daily_sleep_quality_table WHERE nightId = :key")
-    fun getNightWithId(key: Long): LiveData<SleepNight>
+    fun getNightWithId(key: Long): LiveData<ImagePost>
 }
 

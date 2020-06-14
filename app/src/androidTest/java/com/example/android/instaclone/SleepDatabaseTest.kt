@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.android.trackmysleepquality
+package com.example.android.instaclone
 
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.android.trackmysleepquality.database.SleepDatabase
-import com.example.android.trackmysleepquality.database.SleepDatabaseDao
-import com.example.android.trackmysleepquality.database.SleepNight
+import com.example.android.instaclone.database.InstaCloneDatabase
+import com.example.android.instaclone.database.InstaCloneDatabaseDao
+import com.example.android.instaclone.database.ImagePost
 import org.junit.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
@@ -38,19 +38,19 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 class SleepDatabaseTest {
 
-    private lateinit var sleepDao: SleepDatabaseDao
-    private lateinit var db: SleepDatabase
+    private lateinit var instaCloneDao: InstaCloneDatabaseDao
+    private lateinit var db: InstaCloneDatabase
 
     @Before
     fun createDb() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         // Using an in-memory database because the information stored here disappears when the
         // process is killed.
-        db = Room.inMemoryDatabaseBuilder(context, SleepDatabase::class.java)
+        db = Room.inMemoryDatabaseBuilder(context, InstaCloneDatabase::class.java)
                 // Allowing main thread queries, just for testing.
                 .allowMainThreadQueries()
                 .build()
-        sleepDao = db.sleepDatabaseDao
+        instaCloneDao = db.instaCloneDatabaseDao
     }
 
     @After
@@ -62,9 +62,9 @@ class SleepDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetNight() {
-        val night = SleepNight()
-        sleepDao.insert(night)
-        val tonight = sleepDao.getTonight()
+        val night = ImagePost()
+        instaCloneDao.insert(night)
+        val tonight = instaCloneDao.getTonight()
         assertEquals(tonight?.sleepQuality, -1)
     }
 }

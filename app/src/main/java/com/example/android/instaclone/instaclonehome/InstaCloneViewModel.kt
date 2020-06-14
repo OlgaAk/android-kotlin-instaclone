@@ -14,24 +14,51 @@
  * limitations under the License.
  */
 
-package com.example.android.trackmysleepquality.sleeptracker
+package com.example.android.instaclone.instaclonehome
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.example.android.trackmysleepquality.database.SleepDatabaseDao
-import com.example.android.trackmysleepquality.database.SleepNight
-import com.example.android.trackmysleepquality.formatNights
+import com.example.android.instaclone.database.InstaCloneDatabaseDao
+import com.example.android.instaclone.database.ImagePost
+import com.example.android.instaclone.formatNights
+import com.example.android.instaclone.network.ImageApi
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Response
 
 /**
  * ViewModel for SleepTrackerFragment.
  */
-class SleepTrackerViewModel(
-        val database: SleepDatabaseDao,
+class InstaCloneViewModel(
+        val database: InstaCloneDatabaseDao,
         application: Application) : AndroidViewModel(application) {
+
+
+    private val _response = MutableLiveData<String>()
+    val response: LiveData<String>
+        get() = _response
+
+    init{
+        getImages()
+    }
+
+    private fun getImages(){
+        ImageApi.retrofitService.getImages().enqueue(object: retrofit2.Callback<JsonArray> {
+            override fun onFailure(call: Call<JsonArray>, t: Throwable) {
+                _response.value = "Failure: " + t.message
+            }
+
+            override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
+                _response.value = response.body().toString()
+            }
+
+        })
+    }
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -50,7 +77,7 @@ class SleepTrackerViewModel(
      */
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var tonight = MutableLiveData<SleepNight?>()
+    private var tonight = MutableLiveData<ImagePost?>()
 
     val nights = database.getAllNights()
 
@@ -101,7 +128,7 @@ class SleepTrackerViewModel(
      * This is private because we don't want to expose setting this value to the Fragment.
      */
 
-    private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
+    private val _navigateToSleepQuality = MutableLiveData<ImagePost>()
     /**
      * Call this immediately after calling `show()` on a toast.
      *
@@ -115,7 +142,7 @@ class SleepTrackerViewModel(
     /**
      * If this is non-null, immediately navigate to [SleepQualityFragment] and call [doneNavigating]
      */
-    val navigateToSleepQuality: LiveData<SleepNight>
+    val navigateToSleepQuality: LiveData<ImagePost>
         get() = _navigateToSleepQuality
 
     /**
@@ -145,7 +172,7 @@ class SleepTrackerViewModel(
      *  If the start time and end time are not the same, then we do not have an unfinished
      *  recording.
      */
-    private suspend fun getTonightFromDatabase(): SleepNight? {
+    private suspend fun getTonightFromDatabase(): ImagePost? {
         return withContext(Dispatchers.IO) {
             var night = database.getTonight()
             if (night?.endTimeMilli != night?.startTimeMilli) {
@@ -161,13 +188,13 @@ class SleepTrackerViewModel(
         }
     }
 
-    private suspend fun update(night: SleepNight) {
+    private suspend fun update(night: ImagePost) {
         withContext(Dispatchers.IO) {
             database.update(night)
         }
     }
 
-    private suspend fun insert(night: SleepNight) {
+    private suspend fun insert(night: ImagePost) {
         withContext(Dispatchers.IO) {
             database.insert(night)
         }
@@ -180,7 +207,7 @@ class SleepTrackerViewModel(
         uiScope.launch {
             // Create a new night, which captures the current time,
             // and insert it into the database.
-            val newNight = SleepNight()
+            val newNight = ImagePost()
 
             insert(newNight)
 
@@ -235,4 +262,6 @@ class SleepTrackerViewModel(
         super.onCleared()
         viewModelJob.cancel()
     }
+
+
 }
