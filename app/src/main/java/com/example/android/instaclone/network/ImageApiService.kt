@@ -9,6 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 
+/* TODO convert json to object */
+
 private const val BASE_URL =  "https://api.unsplash.com/"
 
 
