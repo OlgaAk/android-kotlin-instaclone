@@ -25,6 +25,7 @@ import com.example.android.instaclone.database.InstaCloneDatabaseDao
 import com.example.android.instaclone.database.ImagePost
 import com.example.android.instaclone.formatNights
 import com.example.android.instaclone.network.ImageApi
+import com.example.android.instaclone.network.Post
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*
@@ -48,13 +49,14 @@ class InstaCloneViewModel(
     }
 
     private fun getImages(){
-        ImageApi.retrofitService.getImages().enqueue(object: retrofit2.Callback<JsonArray> {
-            override fun onFailure(call: Call<JsonArray>, t: Throwable) {
+        ImageApi.retrofitService.getImages().enqueue(object: retrofit2.Callback<List<Post>> {
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
                 _response.value = "Failure: " + t.message
             }
 
-            override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
-                _response.value = response.body().toString()
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+               _response.value = response.body().toString()
+                //_response.value = "Size is ${response.body()?.size}"
             }
 
         })
