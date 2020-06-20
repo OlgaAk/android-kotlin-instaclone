@@ -67,13 +67,6 @@ class InstaCloneFragment : Fragment() {
 
 
 
-        instaCloneViewModel.nights.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.submitList(it)
-                Log.i("Myactivity", "data is $it")
-
-            }
-        })
 
         binding.setLifecycleOwner(this)
 

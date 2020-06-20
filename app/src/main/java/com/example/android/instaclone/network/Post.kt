@@ -4,9 +4,10 @@ import com.squareup.moshi.Json
 
 data class Post(
         val id: String,
-        @Json(name = "alt_description") val description: String,
+        val alt_description: String?,
+        val description: String?,
         val likes: Long,
-        val url: Url
+        @Json(name = "urls") val url: Url
 )
 
 data class Url(
