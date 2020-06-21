@@ -16,26 +16,21 @@
 
 package com.example.android.instaclone.instaclonehome
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.instaclone.database.ImagePost
-import com.example.android.instaclone.databinding.ListItemImagePostsBinding
 
-class ImagePostAdapter (val clickListener: SleepNightListener):    ListAdapter<ImagePost, ImagePostAdapter.ViewHolder>(SleepNightDiffCallback()){
-   /* var data = listOf<SleepNight>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        } /// was used with RecyclerView.Adapter<SleepNightAdapter.ViewHolder>
-*/
+import com.example.android.instaclone.databinding.ListItemImagePostsBinding
+import com.example.android.instaclone.network.Post
+
+class ImagePostAdapter :    ListAdapter<Post, ImagePostAdapter.ViewHolder>(DiffCallback()){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!, clickListener)
+       holder.bind(getItem(position)!!)
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -43,9 +38,9 @@ class ImagePostAdapter (val clickListener: SleepNightListener):    ListAdapter<I
 
     class ViewHolder private constructor(val binding: ListItemImagePostsBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: ImagePost, clickListener: SleepNightListener) {
-            binding.sleep = item
-            binding.clickListener = clickListener
+        fun bind(item: Post) {
+            binding.imagePost = item
+            Log.d("Myactivity", "Inside viewholder bind. item is " + item.toString())
             binding.executePendingBindings()
         }
 
@@ -61,16 +56,12 @@ class ImagePostAdapter (val clickListener: SleepNightListener):    ListAdapter<I
 
 }
 
-class SleepNightDiffCallback: DiffUtil.ItemCallback<ImagePost>(){
-    override fun areItemsTheSame(oldItem: ImagePost, newItem: ImagePost): Boolean {
-        return oldItem.nightId == newItem.nightId
+class DiffCallback: DiffUtil.ItemCallback<Post>(){
+    override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ImagePost, newItem: ImagePost): Boolean {
+    override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem == newItem
     }
-}
-
-class SleepNightListener(val clickListener: (sleepId:Long)->Unit){
-    fun onClick(night:ImagePost) = clickListener(night.nightId)
 }

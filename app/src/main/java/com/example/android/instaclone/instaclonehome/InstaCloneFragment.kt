@@ -18,60 +18,41 @@ package com.example.android.instaclone.instaclonehome
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.android.instaclone.R
-import com.example.android.instaclone.database.InstaCloneDatabase
 import com.example.android.instaclone.databinding.FragmentInstaCloneBinding
 
-/**
- * A fragment with buttons to record start and end times for sleep, which are saved in
- * a database. Cumulative data is displayed in a simple scrollable TextView.
- * (Because we have not learned about RecyclerView yet.)
- */
+
 class InstaCloneFragment : Fragment() {
 
-    /**
-     * Called when the Fragment is ready to display content to the screen.
-     *
-     * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
-     */
+
+    val instaCloneViewModel : InstaCloneViewModel by lazy {
+        ViewModelProviders.of(
+                this).get(InstaCloneViewModel::class.java)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentInstaCloneBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_insta_clone, container, false)
-
-        val application = requireNotNull(this.activity).application
-
-        val dataSource = InstaCloneDatabase.getInstance(application).instaCloneDatabaseDao
-
-        val viewModelFactory = InstaCloneViewModelFactory(dataSource, application)
-
-        val instaCloneViewModel =
-                ViewModelProviders.of(
-                        this, viewModelFactory).get(InstaCloneViewModel::class.java)
-
-        binding.instaCloneViewModel = instaCloneViewModel
-
-        val adapter = ImagePostAdapter(SleepNightListener {
-
-    })
-        binding.postsList.adapter = adapter
-
-
-
+        val binding = FragmentInstaCloneBinding.inflate(inflater)
 
         binding.setLifecycleOwner(this)
 
+        binding.instaCloneViewModel = instaCloneViewModel
 
+        binding.postsList.adapter = ImagePostAdapter()
+
+        setHasOptionsMenu(true)
 
         return binding.root
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+//        inflater.inflate(R.menu.overflow_menu, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    } TODO create menu
 }

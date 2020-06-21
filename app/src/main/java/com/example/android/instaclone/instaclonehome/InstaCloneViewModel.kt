@@ -17,13 +17,9 @@
 package com.example.android.instaclone.instaclonehome
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import com.example.android.instaclone.database.InstaCloneDatabaseDao
-import com.example.android.instaclone.database.ImagePost
-import com.example.android.instaclone.formatNights
+import android.util.Log
+import androidx.lifecycle.*
+
 import com.example.android.instaclone.network.ImageApi
 import com.example.android.instaclone.network.Post
 import com.google.gson.JsonArray
@@ -35,14 +31,16 @@ import retrofit2.Response
 /**
  * ViewModel for SleepTrackerFragment.
  */
-class InstaCloneViewModel(
-        val database: InstaCloneDatabaseDao,
-        application: Application) : AndroidViewModel(application) {
+class InstaCloneViewModel : ViewModel() {
 
 
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
         get() = _response
+
+    private val _imagePosts = MutableLiveData<List<Post>>()
+    val imagePosts: LiveData<List<Post>>
+        get() = _imagePosts
 
     private var viewModelJob = Job()
 
@@ -59,6 +57,10 @@ class InstaCloneViewModel(
                 var listResult = getImagesDeferred.await()
                     _response.value = listResult.toString()
                     //_response.value = "Size is ${response.body()?.size}"
+                if(listResult.size > 0) {
+                    _imagePosts.value = listResult
+                    Log.d("Myactivity", "Inside Viewmodel getimages. imageposts are " + imagePosts.toString())
+                }
                 } catch (t:Throwable){
                 _response.value = "Failure: " + t.message
             }
@@ -68,12 +70,6 @@ class InstaCloneViewModel(
     //TODO display images from url
 
 
-    /**
-     * Called when the ViewModel is dismantled.
-     * At this point, we want to cancel all coroutines;
-     * otherwise we end up with processes that have nowhere to return to
-     * using memory and resources.
-     */
 
     override fun onCleared() {
         super.onCleared()
