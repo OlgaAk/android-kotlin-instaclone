@@ -65,6 +65,8 @@ class InstaCloneViewModel(
         }
     }
 
+    //TODO display images from url
+
 
     /**
      * Called when the ViewModel is dismantled.
