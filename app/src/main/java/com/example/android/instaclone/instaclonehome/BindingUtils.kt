@@ -39,7 +39,6 @@ fun bindRecyclerView(recyclerView: RecyclerView, data : List<Post>?){
 fun bindImage(imgView: ImageView, imgUrl: String?){
     imgUrl?.let {
         var imgUri = it.toUri().buildUpon().scheme("https").build()
-
         Glide.with(imgView.context)
                 .load(imgUri)
                 .apply(RequestOptions.centerCropTransform()
@@ -48,6 +47,22 @@ fun bindImage(imgView: ImageView, imgUrl: String?){
                 .into(imgView)
     }
 }
+
+@BindingAdapter("imageUrlRounded")
+fun bindImageRounded(imgView: ImageView, imgUrl: String?){
+    imgUrl?.let {
+        var imgUri = it.toUri().buildUpon().scheme("https").build()
+        Glide.with(imgView.context)
+                .load(imgUri)
+                .apply(RequestOptions.centerCropTransform().circleCrop()
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image_black_24dp))
+                .into(imgView)
+    }
+}
+
+
+
 
 //@BindingAdapter("sleepDurationFormated")
 //fun TextView.setSleepDurationFormated(item: ImagePost?){

@@ -10,24 +10,58 @@
 
     </data>
 
-    <ImageView
-        android:id="@+id/post_image"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:padding="2dp"
-        app:imageUrl="@{imagePost.url.imgScrUrl}"
-        tools:src="@tools:sample/backgrounds/scenic"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+      <!--  android:onClick="@{()->clickListener.onClick(   )}"-->
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-<!--      &lt;!&ndash;  android:onClick="@{()->clickListener.onClick(   )}"&ndash;&gt;-->
+        <ImageView
+            android:id="@+id/avatar_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:padding="2dp"
+            app:imageUrlRounded="@{imagePost.url.imgScrUrl}"
+            tools:src="@tools:sample/backgrounds/scenic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/chapter_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:text="@{imagePost.id}"
+            app:layout_constraintStart_toEndOf="@+id/avatar_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="GDG Mountain View is really long so it will wrap in tools"
+            android:textAppearance="?textAppearanceHeadline6"
+            android:gravity="center_vertical"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toBottomOf="@+id/avatar_image"
+            app:layout_constraintTop_toTopOf="@+id/avatar_image"
+            ></TextView>
 
 
+        <ImageView
+            android:id="@+id/post_image"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:padding="2dp"
+            app:imageUrl="@{imagePost.url.imgScrUrl}"
+            tools:src="@tools:sample/backgrounds/scenic"
+            app:layout_constraintTop_toBottomOf="@+id/avatar_image"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
 
-<!--        -->
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
