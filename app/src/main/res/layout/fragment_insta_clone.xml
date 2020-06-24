@@ -11,25 +11,48 @@
             type="com.example.android.instaclone.instaclonehome.InstaCloneViewModel" />
     </data>
 
+
     <!-- Start of the visible fragment layout using ConstraintLayout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.android.instaclone.MainActivity">
+
+
+        <ImageView
+            android:id="@+id/story_image"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:adjustViewBounds="true"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            android:src="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/posts_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/posts_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="6dp"
             android:clipToPadding="false"
+            android:padding="6dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/story_image"
+
             app:listData="@{instaCloneViewModel.imagePosts}"
 
             tools:itemCount="16"
             tools:listitem="@layout/list_item_image_posts" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

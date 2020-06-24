@@ -20,26 +20,39 @@
 
         <ImageView
             android:id="@+id/avatar_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:padding="2dp"
             app:imageUrlRounded="@{imagePost.url.imgScrUrl}"
             tools:src="@tools:sample/backgrounds/scenic"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="@dimen/spacing_small"/>
+
+        <ImageView
+            android:id="@+id/icon_more"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:tint="@color/gray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_more_vert_24px"
+            android:layout_marginRight="@dimen/spacing_small"
+            ></ImageView>
 
         <TextView
-            android:id="@+id/chapter_name"
-            android:layout_width="0dp"
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginEnd="@dimen/spacing_normal"
             android:text="@{imagePost.id}"
             app:layout_constraintStart_toEndOf="@+id/avatar_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="GDG Mountain View is really long so it will wrap in tools"
+            tools:text="johndoe"
             android:textAppearance="?textAppearanceHeadline6"
             android:gravity="center_vertical"
             app:layout_constraintVertical_chainStyle="packed"
@@ -51,17 +64,125 @@
         <ImageView
             android:id="@+id/post_image"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:paddingBottom="10dp"
+            android:scaleType="centerCrop"
+
+            app:imageUrl="@{imagePost.url.imgScrUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avatar_image"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <ImageView
+        android:id="@+id/icon_like"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+    android:tint="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/post_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_favorite_border_24px"
+    android:layout_marginLeft="@dimen/spacing_small"
+        ></ImageView>
+
+        <ImageView
+            android:id="@+id/icon_comment"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:tint="@color/gray"
+            android:scaleX="-1"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@id/post_image"
+            app:layout_constraintStart_toEndOf="@id/icon_like"
+            app:srcCompat="@drawable/ic_maps_ugc_24px"
+            ></ImageView>
+
+        <ImageView
+            android:id="@+id/icon_send"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:tint="@color/gray"
+            android:rotation="-20"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toBottomOf="@id/post_image"
+            app:layout_constraintStart_toEndOf="@id/icon_comment"
+            app:srcCompat="@drawable/ic_send_24px"
+            ></ImageView>
+
+        <ImageView
+            android:id="@+id/icon_bookmark"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            app:layout_constraintTop_toBottomOf="@id/post_image"
+    android:tint="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_bookmark_border_24px"
+            app:layout_constraintBottom_toTopOf="@id/text_who_liked"
+            android:layout_marginRight="@dimen/spacing_small"
+            ></ImageView>
+
+
+        <TextView
+            android:id="@+id/text_who_liked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/icon_like"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/image_description"
+            android:text="Нравится: 1"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/image_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_who_liked"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/comment_avatar_image"
+            android:text="@{imagePost.alt_description}"
+            tools:text="Description text"
+            ></TextView>
+
+        <ImageView
+            android:id="@+id/comment_avatar_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:padding="2dp"
-            app:imageUrl="@{imagePost.url.imgScrUrl}"
+            app:imageUrlRounded="@{imagePost.url.imgScrUrl}"
             tools:src="@tools:sample/backgrounds/scenic"
-            app:layout_constraintTop_toBottomOf="@+id/avatar_image"
+            app:layout_constraintTop_toBottomOf="@id/image_description"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginLeft="@dimen/spacing_normal"
+            app:layout_constraintEnd_toStartOf="@id/text_write_comment"
+            app:layout_constraintBottom_toTopOf="@id/text_time_ago"
+            />
 
+        <TextView
+            android:id="@+id/text_write_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/comment_avatar_image"
+            app:layout_constraintStart_toEndOf="@id/comment_avatar_image"
+            android:text="Добавьте комметарий"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            app:layout_constraintBottom_toTopOf="@id/text_time_ago"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/text_time_ago"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_write_comment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="24 минуты назад"
+            ></TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
