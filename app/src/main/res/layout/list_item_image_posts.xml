@@ -46,19 +46,17 @@
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:gravity="center_vertical"
+            android:text="@{imagePost.user.username}"
+            android:textAppearance="?textAppearanceHeadline6"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold"
-            android:layout_marginStart="@dimen/spacing_normal"
-            android:layout_marginEnd="@dimen/spacing_normal"
-            android:text="@{imagePost.user.username}"
-            app:layout_constraintStart_toEndOf="@+id/avatar_image"
-            tools:text="johndoe"
-            android:textAppearance="?textAppearanceHeadline6"
-            android:gravity="center_vertical"
-            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintBottom_toBottomOf="@+id/avatar_image"
+            app:layout_constraintStart_toEndOf="@+id/avatar_image"
             app:layout_constraintTop_toTopOf="@+id/avatar_image"
-            ></TextView>
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="johndoe"></TextView>
 
 
         <ImageView
