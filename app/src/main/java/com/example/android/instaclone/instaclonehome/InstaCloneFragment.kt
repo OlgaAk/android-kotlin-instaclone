@@ -16,9 +16,12 @@
 
 package com.example.android.instaclone.instaclonehome
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -44,7 +47,29 @@ class InstaCloneFragment : Fragment() {
 
         binding.instaCloneViewModel = instaCloneViewModel
 
-        binding.postsList.adapter = ImagePostAdapter()
+        binding.postsList.adapter = ImagePostAdapter(ImagePostListener { 
+            post, view ->
+            when(view.id){
+                R.id.icon_like -> {
+                    val imageView = view as ImageView
+                    if(!post.liked_by_user) {
+                        imageView.setImageResource(R.drawable.ic_favorite_filled_24px)
+                        post.liked_by_user = true
+                        post.likes ++
+                    }
+                    else {
+                        imageView.setImageResource(R.drawable.ic_favorite_border_24px)
+                        post.liked_by_user = false
+                        post.likes --
+                    }
+                }
+                R.id.icon_comment -> Toast.makeText(context,"Comment icon clicked", Toast.LENGTH_SHORT).show()
+                R.id.icon_send -> Toast.makeText(context,"Send icon clicked", Toast.LENGTH_SHORT).show()
+                R.id.icon_bookmark -> Toast.makeText(context,"Bookmark icon clicked", Toast.LENGTH_SHORT).show()
+                R.id.icon_more -> Toast.makeText(context,"More icon clicked", Toast.LENGTH_SHORT).show()
+                else -> {}
+            }
+        })
 
         setHasOptionsMenu(true)
 

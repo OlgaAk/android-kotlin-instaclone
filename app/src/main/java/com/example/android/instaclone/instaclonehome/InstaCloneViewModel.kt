@@ -42,6 +42,7 @@ class InstaCloneViewModel : ViewModel() {
     val imagePosts: LiveData<List<Post>>
         get() = _imagePosts
 
+
     private var viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -67,7 +68,6 @@ class InstaCloneViewModel : ViewModel() {
         }
     }
 
-    //TODO display images from url
 
 
 

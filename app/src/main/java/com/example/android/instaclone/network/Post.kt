@@ -7,9 +7,10 @@ data class Post(
         val id: String,
         val alt_description: String? = "нет описания",
         val description: String?,
-        val likes: Long,
+        var likes: Long,
         @Json(name = "urls") val url: Url,
-        val user: User
+        val user: User,
+        var liked_by_user: Boolean
 ){
     var likesString = "Нравится: ${likes.toString()}"
     val descriptionFormatedString = descriptionFormatted(user.username, description, alt_description)
