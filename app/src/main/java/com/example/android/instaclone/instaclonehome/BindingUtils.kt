@@ -15,7 +15,7 @@ import descriptionFormatted
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data : List<Post>?){
     val adapter = recyclerView.adapter as ImagePostAdapter
-    adapter.submitList(data)
+    adapter.addHeaderAndSubmitList(data)
     Log.d("Myactivity", "Inside bindingutils . data is " + data.toString())
 }
 
@@ -33,8 +33,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?){
     }
 }
 
-@BindingAdapter("imageUrlRounded")
-fun bindImageRounded(imgView: ImageView, imgUrl: String?){
+@BindingAdapter("imageFromUrlRounded")
+fun bindImageFromUrlRounded(imgView: ImageView, imgUrl: String?){
     imgUrl?.let {
         var imgUri = it.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
@@ -45,6 +45,20 @@ fun bindImageRounded(imgView: ImageView, imgUrl: String?){
                 .into(imgView)
     }
 }
+
+
+@BindingAdapter("imageRounded")
+fun bindImageRounded(imgView: ImageView, imgScr: Int? = R.drawable.ic_autorenew_black_24dp){
+    imgScr?.let {
+        Glide.with(imgView.context)
+                .load(imgScr)
+                .apply(RequestOptions.centerCropTransform().circleCrop()
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image_black_24dp))
+                .into(imgView)
+    }
+}
+
 
 
 

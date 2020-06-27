@@ -23,12 +23,12 @@
 
         <ImageView
             android:id="@+id/avatar_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:padding="2dp"
-            app:imageUrlRounded="@{imagePost.url.imgScrUrl}"
+            app:imageFromUrlRounded="@{imagePost.url.imgScrUrl}"
             tools:src="@tools:sample/backgrounds/scenic"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,6 +108,7 @@
             android:layout_height="35dp"
             android:tint="@color/gray"
             android:rotation="-40"
+            android:translationY="-3dp"
             android:paddingBottom="12dp"
             android:paddingLeft="2dp"
             android:layout_marginStart="16dp"
@@ -118,19 +119,19 @@
             android:onClick="@{(id)->clickListener.onClick(imagePost, id)}"
             ></ImageView>
 
+
         <ImageView
             android:id="@+id/icon_bookmark"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            app:layout_constraintTop_toBottomOf="@id/post_image"
-    android:tint="@color/gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_bookmark_border_24px"
-            app:layout_constraintBottom_toTopOf="@id/text_who_liked"
-            android:layout_marginRight="@dimen/spacing_small"
+            android:layout_marginEnd="8dp"
             android:onClick="@{(id)->clickListener.onClick(imagePost, id)}"
-            ></ImageView>
-
+            android:tint="@color/gray"
+            app:layout_constraintBottom_toTopOf="@id/text_who_liked"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/icon_like"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_bookmark_border_24px"></ImageView>
 
         <TextView
             android:id="@+id/text_who_liked"
@@ -159,12 +160,12 @@
 
         <ImageView
             android:id="@+id/comment_avatar_image"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:padding="2dp"
-            app:imageUrlRounded="@{imagePost.url.imgScrUrl}"
+            app:imageFromUrlRounded="@{imagePost.url.imgScrUrl}"
             tools:src="@tools:sample/backgrounds/scenic"
             app:layout_constraintTop_toBottomOf="@id/image_description"
             app:layout_constraintStart_toStartOf="parent"
@@ -189,7 +190,7 @@
             android:id="@+id/text_time_ago"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/text_write_comment"
+            app:layout_constraintTop_toBottomOf="@id/comment_avatar_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textSize="@dimen/font_very_small"

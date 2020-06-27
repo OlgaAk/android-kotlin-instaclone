@@ -14,6 +14,7 @@ data class Post(
 ){
     var likesString = "Нравится: ${likes.toString()}"
     val descriptionFormatedString = descriptionFormatted(user.username, description, alt_description)
+    var bookMarked : Boolean = false
 }
 
 data class Url(
