@@ -12,12 +12,7 @@ import com.example.android.instaclone.R
 import com.example.android.instaclone.network.Post
 import descriptionFormatted
 
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data : List<Post>?){
-    val adapter = recyclerView.adapter as ImagePostAdapter
-    adapter.addHeaderAndSubmitList(data)
-    Log.d("Myactivity", "Inside bindingutils . data is " + data.toString())
-}
+
 
 
 @BindingAdapter("imageUrl")
@@ -47,18 +42,15 @@ fun bindImageFromUrlRounded(imgView: ImageView, imgUrl: String?){
 }
 
 
-@BindingAdapter("imageRounded")
-fun bindImageRounded(imgView: ImageView, imgScr: Int? = R.drawable.ic_autorenew_black_24dp){
-    imgScr?.let {
-        Glide.with(imgView.context)
-                .load(imgScr)
-                .apply(RequestOptions.centerCropTransform().circleCrop()
-                        .placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.ic_broken_image_black_24dp))
-                .into(imgView)
+@BindingAdapter("likeIconImage")
+fun setLikeIconImage(imgView: ImageView, liked: Boolean){
+    Log.d("Myapp", "Binding adapter changes image liked ${liked}")
+    if(liked){
+        imgView.setImageResource(R.drawable.ic_favorite_filled_24px)
+    } else {
+        imgView.setImageResource(R.drawable.ic_favorite_border_24px)
     }
 }
-
 
 
 

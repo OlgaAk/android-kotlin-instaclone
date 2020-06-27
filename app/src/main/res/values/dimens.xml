@@ -26,6 +26,8 @@
     <dimen name="font_very_small">10sp</dimen>
     <dimen name="story_icon_size">60dp</dimen>
     <dimen name="user_icon_size">35dp</dimen>
+    <dimen name="font_12sp">12sp</dimen>
+    <dimen name="plus_badge_size">20dp</dimen>
 
 
 </resources>

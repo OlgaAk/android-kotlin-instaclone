@@ -84,7 +84,7 @@
     android:tint="@color/gray"
         app:layout_constraintTop_toBottomOf="@id/post_image"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_favorite_border_24px"
+        app:likeIconImage="@{imagePost.liked_by_user}"
     android:layout_marginLeft="@dimen/spacing_small"
             android:onClick="@{(id)->clickListener.onClick(imagePost, id)}"
         ></ImageView>
@@ -140,7 +140,7 @@
             app:layout_constraintTop_toBottomOf="@id/icon_like"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/image_description"
-            android:text="@{imagePost.likesString}"
+            android:text="@{@string/likes(imagePost.likes)}"
             android:textStyle="bold"
             android:layout_marginLeft="@dimen/spacing_small"
             ></TextView>

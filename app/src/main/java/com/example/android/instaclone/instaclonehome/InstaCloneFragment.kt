@@ -33,7 +33,7 @@ import com.example.android.instaclone.databinding.FragmentInstaCloneBinding
 class InstaCloneFragment : Fragment() {
 
 
-    val instaCloneViewModel : InstaCloneViewModel by lazy {
+    val instaCloneViewModel: InstaCloneViewModel by lazy {
         ViewModelProviders.of(
                 this).get(InstaCloneViewModel::class.java)
     }
@@ -47,54 +47,43 @@ class InstaCloneFragment : Fragment() {
 
         binding.instaCloneViewModel = instaCloneViewModel
 
-        val adapter = ImagePostAdapter(ImagePostListener {
-            post, view -> when(view.id){
-            R.id.icon_like -> {
-                val imageView = view as ImageView
-                if(!post.liked_by_user) {
-                    imageView.setImageResource(R.drawable.ic_favorite_filled_24px)
-                    post.liked_by_user = true
-                    post.likes ++
+        val adapter = ImagePostAdapter(ImagePostListener { post, view ->
+            when (view.id) {
+                R.id.icon_like -> instaCloneViewModel.onLikeClicked(post)
+                R.id.icon_comment -> Toast.makeText(context, "Comment icon clicked", Toast.LENGTH_SHORT).show()
+                R.id.icon_send -> Toast.makeText(context, "Send icon clicked", Toast.LENGTH_SHORT).show()
+                R.id.icon_bookmark -> {
+                    val imageView = view as ImageView
+                    if (!post.bookMarked) {
+                        imageView.setImageResource(R.drawable.ic_bookmark_filled_24px)
+                        post.bookMarked = true
+                    } else {
+                        imageView.setImageResource(R.drawable.ic_bookmark_border_24px)
+                        post.bookMarked = false
+                    }
                 }
-                else {
-                    imageView.setImageResource(R.drawable.ic_favorite_border_24px)
-                    post.liked_by_user = false
-                    post.likes --
-                }
-            }
-            R.id.icon_comment -> Toast.makeText(context,"Comment icon clicked", Toast.LENGTH_SHORT).show()
-            R.id.icon_send -> Toast.makeText(context,"Send icon clicked", Toast.LENGTH_SHORT).show()
-            R.id.icon_bookmark -> {
-                val imageView = view as ImageView
-                if(!post.bookMarked) {
-                    imageView.setImageResource(R.drawable.ic_bookmark_filled_24px)
-                    post.bookMarked = true
-                }
-                else {
-                    imageView.setImageResource(R.drawable.ic_bookmark_border_24px)
-                    post.bookMarked = false
+                R.id.icon_more -> Toast.makeText(context, "More icon clicked", Toast.LENGTH_SHORT).show()
+                else -> {
                 }
             }
-            R.id.icon_more -> Toast.makeText(context,"More icon clicked", Toast.LENGTH_SHORT).show()
-            else -> {}
-        }
-    })
+        })
 
         binding.postsList.adapter = adapter
 
         instaCloneViewModel.imagePosts.observe(viewLifecycleOwner, Observer {
-            it?.let{
+            Log.d("Myapp", "Observer post list changed")
+            it?.let {
                 adapter.addHeaderAndSubmitList(it)
                 Log.d("Myapp", "list submited")
             }
         })
 
+
+
         setHasOptionsMenu(true)
 
         return binding.root
     }
-
-
 
 
 //    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

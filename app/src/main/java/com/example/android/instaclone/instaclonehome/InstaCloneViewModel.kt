@@ -19,6 +19,7 @@ package com.example.android.instaclone.instaclonehome
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.android.instaclone.R
 
 import com.example.android.instaclone.network.ImageApi
 import com.example.android.instaclone.network.Post
@@ -47,28 +48,26 @@ class InstaCloneViewModel : ViewModel() {
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    init{
+    init {
         getImages()
     }
 
-    private fun getImages(){
+    private fun getImages() {
         uiScope.launch {
             var getImagesDeferred = ImageApi.retrofitService.getImages()
-            try{
+            try {
                 var listResult = getImagesDeferred.await()
-                    _response.value = listResult.toString()
-                    //_response.value = "Size is ${response.body()?.size}"
-                if(listResult.size > 0) {
+                _response.value = listResult.toString()
+                //_response.value = "Size is ${response.body()?.size}"
+                if (listResult.size > 0) {
                     _imagePosts.value = listResult
                     Log.d("Myactivity", "Inside Viewmodel getimages. imageposts are " + imagePosts.toString())
                 }
-                } catch (t:Throwable){
+            } catch (t: Throwable) {
                 _response.value = "Failure: " + t.message
             }
         }
     }
-
-
 
 
     override fun onCleared() {
@@ -76,7 +75,23 @@ class InstaCloneViewModel : ViewModel() {
         viewModelJob.cancel()
     }
 
+    fun onLikeClicked(post: Post) {
 
+        val item = _imagePosts.value?.find { it.id == post.id }
+        Log.d("Myapp", "like clicked. is liked ${post.liked_by_user}, item ${item?.liked_by_user} ${item?.likes}")
+        if(item != null) {
+            if (item.liked_by_user) {
+                item.liked_by_user = false
+                item.likes = item.likes.minus(1)
+
+            } else {
+                item.liked_by_user = true
+                item.likes = item.likes.plus(1)
+            }
+            Log.d("Myapp", " is liked item ${item?.liked_by_user}, ${item?.likes}  mutable ${_imagePosts.value?.get(0)?.liked_by_user}")
+        }
+
+}
 
 
 }
