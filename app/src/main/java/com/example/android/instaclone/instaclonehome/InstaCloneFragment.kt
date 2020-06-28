@@ -17,6 +17,7 @@
 package com.example.android.instaclone.instaclonehome
 
 import android.graphics.Color
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -28,6 +29,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.android.instaclone.R
 import com.example.android.instaclone.databinding.FragmentInstaCloneBinding
+import kotlinx.android.synthetic.main.list_item_image_posts.view.*
 
 
 class InstaCloneFragment : Fragment() {
@@ -43,13 +45,15 @@ class InstaCloneFragment : Fragment() {
 
         val binding = FragmentInstaCloneBinding.inflate(inflater)
 
-        binding.setLifecycleOwner(this)
-
         binding.instaCloneViewModel = instaCloneViewModel
+
+        binding.lifecycleOwner = this
 
         val adapter = ImagePostAdapter(ImagePostListener { post, view ->
             when (view.id) {
-                R.id.icon_like -> instaCloneViewModel.onLikeClicked(post)
+                R.id.icon_like -> {
+                    instaCloneViewModel.onLikeClicked(post)
+                }
                 R.id.icon_comment -> Toast.makeText(context, "Comment icon clicked", Toast.LENGTH_SHORT).show()
                 R.id.icon_send -> Toast.makeText(context, "Send icon clicked", Toast.LENGTH_SHORT).show()
                 R.id.icon_bookmark -> {
@@ -71,18 +75,33 @@ class InstaCloneFragment : Fragment() {
         binding.postsList.adapter = adapter
 
         instaCloneViewModel.imagePosts.observe(viewLifecycleOwner, Observer {
-            Log.d("Myapp", "Observer post list changed")
+
             it?.let {
+                Log.d("Myapp", "Observer post list changed ${it.get(0).likes}")
                 adapter.addHeaderAndSubmitList(it)
                 Log.d("Myapp", "list submited")
             }
         })
 
+        instaCloneViewModel.liked.observe(viewLifecycleOwner, Observer {
+            changeLikeIcon(it, binding)
+        })
 
 
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun changeLikeIcon(it: Boolean?, binding: FragmentInstaCloneBinding) {
+        val icon = binding.postsList.icon_like
+        val text = binding.postsList.text_who_liked
+        text.text = resources.getString(R.string.likes, instaCloneViewModel.likes.value)
+        if (!it!!) {
+            icon.setImageResource(R.drawable.ic_favorite_filled_24px)
+        } else {
+            icon.setImageResource(R.drawable.ic_favorite_border_24px)
+        }
     }
 
 

@@ -55,9 +55,11 @@ class ImagePostAdapter(val clickListener: ImagePostListener) : ListAdapter<DataI
                 else -> listOf(DataItem.Header) + list.map { DataItem.PostItem(it) }
             }
             withContext(Dispatchers.Main){
+
                 submitList(items)
             }
         }
+
     }
 
     class ViewHolder private constructor(val binding: ListItemImagePostsBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -67,6 +69,7 @@ class ImagePostAdapter(val clickListener: ImagePostListener) : ListAdapter<DataI
             binding.clickListener = clickListener
             Log.d("Myactivity", "Inside viewholder bind. item is " + item.toString())
             binding.executePendingBindings()
+
         }
 
         companion object {

@@ -35,13 +35,21 @@ import retrofit2.Response
 class InstaCloneViewModel : ViewModel() {
 
 
-    private val _response = MutableLiveData<String>()
+    private var _response = MutableLiveData<String>()
     val response: LiveData<String>
         get() = _response
 
-    private val _imagePosts = MutableLiveData<List<Post>>()
+    private var _imagePosts = MutableLiveData<List<Post>>()
     val imagePosts: LiveData<List<Post>>
         get() = _imagePosts
+
+    private val _liked = MutableLiveData<Boolean>()
+    val liked: LiveData<Boolean>
+        get() = _liked
+
+    private val _likes = MutableLiveData<Long>()
+    val likes: LiveData<Long>
+        get() = _likes
 
 
     private var viewModelJob = Job()
@@ -76,22 +84,24 @@ class InstaCloneViewModel : ViewModel() {
     }
 
     fun onLikeClicked(post: Post) {
+       if (post!= null) {
+           _likes.value = post.likes
+                if (post.liked_by_user) {
+                    post.liked_by_user = false
+                    post.likes --
+                    _liked.value = false
+                } else {
+                    post.liked_by_user = true
+                    post.likes ++
+                    _liked.value = true
+                }
+           _likes.value = post.likes
+           _imagePosts.value = _imagePosts.value
+           Log.d("Myapp", "mutable ${_imagePosts.value?.get(0)?.liked_by_user} ${_imagePosts.value?.get(0)?.likes}")
 
-        val item = _imagePosts.value?.find { it.id == post.id }
-        Log.d("Myapp", "like clicked. is liked ${post.liked_by_user}, item ${item?.liked_by_user} ${item?.likes}")
-        if(item != null) {
-            if (item.liked_by_user) {
-                item.liked_by_user = false
-                item.likes = item.likes.minus(1)
+       }
 
-            } else {
-                item.liked_by_user = true
-                item.likes = item.likes.plus(1)
-            }
-            Log.d("Myapp", " is liked item ${item?.liked_by_user}, ${item?.likes}  mutable ${_imagePosts.value?.get(0)?.liked_by_user}")
-        }
-
-}
+    }
 
 
 }

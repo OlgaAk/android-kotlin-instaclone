@@ -42,14 +42,10 @@ fun bindImageFromUrlRounded(imgView: ImageView, imgUrl: String?){
 }
 
 
-@BindingAdapter("likeIconImage")
-fun setLikeIconImage(imgView: ImageView, liked: Boolean){
-    Log.d("Myapp", "Binding adapter changes image liked ${liked}")
-    if(liked){
-        imgView.setImageResource(R.drawable.ic_favorite_filled_24px)
-    } else {
-        imgView.setImageResource(R.drawable.ic_favorite_border_24px)
-    }
+@BindingAdapter("listData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Post>?) {
+    val adapter = recyclerView.adapter as ImagePostAdapter
+    adapter.addHeaderAndSubmitList(data)
 }
 
 
