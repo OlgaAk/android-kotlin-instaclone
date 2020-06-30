@@ -10,7 +10,7 @@ App is build upon a toy app from Udacity lesson on Android.
 
 ## Screenshots
 
-![Screenshot1](screenshots/instaclone_home.png)
+![Screenshot1](screenshots/instaclone_home1.png)
 ![Screenshot2](screenshots/instaclone_home2.png)
 
 
