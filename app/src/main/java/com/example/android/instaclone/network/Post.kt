@@ -10,6 +10,7 @@ data class Post(
         var likes: Long,
         @Json(name = "urls") val url: Url,
         val user: User,
+        val created_at: String,
         var liked_by_user: Boolean
 ){
 

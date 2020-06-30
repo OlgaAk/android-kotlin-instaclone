@@ -186,7 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_small"
             android:layout_marginTop="@dimen/spacing_small"
-            android:text="24 минуты назад"
+            app:timePosted="@{imagePost.created_at}"
             android:textSize="@dimen/font_very_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
