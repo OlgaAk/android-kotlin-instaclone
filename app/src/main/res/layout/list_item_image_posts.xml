@@ -138,6 +138,7 @@
             android:layout_marginLeft="@dimen/spacing_small"
             android:text="@{@string/likes(imagePost.likes)}"
             android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             app:layout_constraintBottom_toTopOf="@id/image_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/icon_like"></TextView>
@@ -148,7 +149,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_small"
             android:layout_marginBottom="@dimen/spacing_small"
-            android:text="@{imagePost.descriptionFormatedString}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:expendableDescription="@{imagePost}"
             app:layout_constraintBottom_toTopOf="@id/comment_avatar_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_who_liked"
@@ -174,11 +176,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_small"
-            android:text="Добавьте комментарий"
+            android:text="Добавьте комментарий..."
             android:textSize="@dimen/font_small"
             app:layout_constraintBottom_toTopOf="@id/text_time_ago"
             app:layout_constraintStart_toEndOf="@id/comment_avatar_image"
-            app:layout_constraintTop_toTopOf="@id/comment_avatar_image"></TextView>
+            app:layout_constraintTop_toBottomOf="@id/image_description"></TextView>
 
         <TextView
             android:id="@+id/text_time_ago"
@@ -188,6 +190,7 @@
             android:layout_marginTop="@dimen/spacing_small"
             app:timePosted="@{imagePost.created_at}"
             android:textSize="@dimen/font_very_small"
+            tools:text="1 минуту назад"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/comment_avatar_image"></TextView>

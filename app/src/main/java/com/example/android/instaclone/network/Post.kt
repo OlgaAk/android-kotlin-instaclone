@@ -14,7 +14,7 @@ data class Post(
         var liked_by_user: Boolean
 ){
 
-    val descriptionFormatedString = descriptionFormatted(user.username, description, alt_description)
+    val descriptionFinal = description ?: alt_description
     var bookMarked : Boolean = false
 }
 
