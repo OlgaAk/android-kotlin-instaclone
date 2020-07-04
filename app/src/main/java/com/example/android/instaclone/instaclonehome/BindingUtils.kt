@@ -117,65 +117,35 @@ fun bindTimePosted(textView: TextView, createdAt: String) {
     val days = hours / 24
     var timeUntilNow: String
     if (days > 0) {
-        timeUntilNow = timeToString(days, "day")
+        timeUntilNow = declineTimeUnit(days, DAY_DECLINATIONS)
     } else if (hours > 0) {
-        timeUntilNow = timeToString(hours, "hour")
+        timeUntilNow = declineTimeUnit(hours, HOUR_DECLINATIONS)
     } else if (minutes > 0) {
-        timeUntilNow = timeToString(minutes, "minute")
+        timeUntilNow =declineTimeUnit(minutes, MINUTE_DECLINATIONS)
     } else {
-        timeUntilNow = timeToString(seconds, "second")
+        timeUntilNow = declineTimeUnit(seconds, SECOND_DECLINATIONS)
     }
-
     textView.text = timeUntilNow
 }
 
-enum class TimeStringFormats(val day: String, val hour: String, val minute: String, val second: String) {
-    ONEUNITE("день", "час", "минута", "секунда"),
-    TWOTHREEFOURUNITES("дня", "часа", "минуты", "секунды"),
-    MULTIPLEUNITES("дней", "часов", "минут", "секунд")
-}
+val SECOND_DECLINATIONS = listOf<String>("секунда", "секунды", "секунд")
+val MINUTE_DECLINATIONS = listOf<String>("минута", "минуты", "минут")
+val HOUR_DECLINATIONS = listOf<String>("час", "часа", "часов")
+val DAY_DECLINATIONS = listOf<String>("день","дня","деней")
 
-fun timeToString(timeUnit: Long, unitType: String): String {
-    return when (unitType) {
-        "day" -> return when (timeUnit % 100) {
-            in 11L..14L -> "$timeUnit ${TimeStringFormats.MULTIPLEUNITES.day} назад"
-            else -> return when (timeUnit % 10) {
-                1L -> {
-                    "$timeUnit ${TimeStringFormats.ONEUNITE.day} назад"
-                }
-                in 2L..4L -> "$timeUnit ${TimeStringFormats.TWOTHREEFOURUNITES.day} назад"
-                else -> "$timeUnit ${TimeStringFormats.MULTIPLEUNITES.day} назад"
+val ONEUNIT = 0
+val TWOTHREEFOURUNITES = 1
+val MULTIPLEUNITES = 2
+
+fun declineTimeUnit(timeUnit: Long, declinationsList: List<String>) : String{
+    return when (timeUnit % 100) {
+        in 11L..14L -> "$timeUnit ${declinationsList[MULTIPLEUNITES]} назад"
+        else -> return when (timeUnit % 10) {
+            1L -> {
+                "$timeUnit ${declinationsList[ONEUNIT]} назад"
             }
-        }
-        "hour" -> return when (timeUnit % 100) {
-            in 11L..14L -> "$timeUnit ${TimeStringFormats.MULTIPLEUNITES.hour} назад"
-            else -> return when (timeUnit % 10) {
-                1L -> {
-                    "$timeUnit ${TimeStringFormats.ONEUNITE.hour} назад"
-                }
-                in 2L..4L -> "$timeUnit ${TimeStringFormats.TWOTHREEFOURUNITES.hour} назад"
-                else -> "$timeUnit ${TimeStringFormats.MULTIPLEUNITES.hour} назад"
-            }
-        }
-        "minute" -> return when (timeUnit % 100) {
-            in 11L..14L -> "$timeUnit ${TimeStringFormats.MULTIPLEUNITES.minute} назад"
-            else -> return when (timeUnit % 10) {
-                1L -> {
-                    "$timeUnit ${TimeStringFormats.ONEUNITE.minute} назад"
-                }
-                in 2L..4L -> "$timeUnit ${TimeStringFormats.TWOTHREEFOURUNITES.minute} назад"
-                else -> "$timeUnit ${TimeStringFormats.MULTIPLEUNITES.minute} назад"
-            }
-        }
-        else -> return when (timeUnit % 100) {
-            in 11L..14L -> "$timeUnit ${TimeStringFormats.MULTIPLEUNITES.second} назад"
-            else -> return when (timeUnit % 10) {
-                1L -> {
-                    "$timeUnit ${TimeStringFormats.ONEUNITE.second} назад"
-                }
-                in 2L..4L -> "$timeUnit ${TimeStringFormats.TWOTHREEFOURUNITES.second} назад"
-                else -> "$timeUnit ${TimeStringFormats.MULTIPLEUNITES.second} назад"
-            }
+            in 2L..4L -> "$timeUnit ${declinationsList[TWOTHREEFOURUNITES]} назад"
+            else -> "$timeUnit ${declinationsList[MULTIPLEUNITES]} назад"
         }
     }
 }
