@@ -41,8 +41,8 @@
     <!-- ActionBar title text -->
     <style name="MyActionBarTitleText"
         parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:fontFamily">@font/indie_flower</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">italic</item>
+        <item name="fontFamily">@font/satisfy</item>
         <item name="android:textSize">26sp</item>
 
     </style>
