@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/home_button"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home"
+        android:contentDescription="Home"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Search"
+        android:contentDescription="Search"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/add_button"
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:title="Add"
+        android:contentDescription="Add"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/like_button"
+        android:icon="@drawable/ic_favorite_border_24px"
+        android:contentDescription="Like"
+        android:title="Like"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/profile_button"
+        android:icon="@drawable/ic_broken_image_black_24dp"
+        android:contentDescription="Profile"
+        android:title="Profile"
+        app:showAsAction="always"
+        />
+</menu>

@@ -139,10 +139,11 @@
             android:layout_marginLeft="@dimen/spacing_small"
             android:text="@{@string/likes(imagePost.likes)}"
             android:textStyle="bold"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             app:layout_constraintBottom_toTopOf="@id/image_description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon_like"></TextView>
+            app:layout_constraintTop_toBottomOf="@id/icon_like"
+            tools:text="Нравится: 1"></TextView>
 
         <TextView
             android:id="@+id/image_description"

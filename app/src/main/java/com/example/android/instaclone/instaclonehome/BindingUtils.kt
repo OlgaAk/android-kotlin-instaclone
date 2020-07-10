@@ -68,7 +68,7 @@ fun makeTextExtendable(textView: TextView, post: Post) {
         textView.text = textToInsert
     } else {
         val shortString = shortenString(textToInsert)
-        textView.text = makeSubStringClickable(shortString, post.descriptionFinal)
+        textView.text = makeSubStringClickable(shortString, textToInsert)
         textView.movementMethod = LinkMovementMethod.getInstance()
     }
 }
@@ -95,7 +95,7 @@ fun convertHtmlToString(string: String): Spanned {
     }
 }
 
-fun makeSubStringClickable(string: String, expendedText: String?): Spanned {
+fun makeSubStringClickable(string: String, expendedText: Spanned?): Spanned {
     val spannableString = SpannableString(string) // needed to make a part of text clickable
     val clickableSpan = object : ClickableSpan() {
         override fun onClick(view: View) {

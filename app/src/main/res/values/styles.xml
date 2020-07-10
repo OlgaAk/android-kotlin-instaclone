@@ -17,13 +17,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/MyActionBar</item>
+
     </style>
 
 
@@ -31,7 +32,7 @@
 
     <!-- ActionBar styles -->
     <style name="MyActionBar"
-        parent="@style/Widget.AppCompat.ActionBar">
+        parent="@style/Widget.MaterialComponents.ActionBar.Primary">
         <item name="background">@color/colorPrimary</item>
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
         <!-- Support library compatibility -->
@@ -44,8 +45,10 @@
         <item name="android:textStyle">italic</item>
         <item name="fontFamily">@font/satisfy</item>
         <item name="android:textSize">26sp</item>
-
     </style>
+
+
+
 
 
 
